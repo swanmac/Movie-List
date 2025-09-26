@@ -8,12 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State var movieNames:[MovieName] =
+    [MovieName]()
+    var dataService = DataService()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        
+        List(movieNames) { item in
+            
+            MovieListRow(item: item)
+            
+        }
+        .listStyle(.plain)
+        .onAppear {
+            // Call for data
+            movieNames = dataService.getData()
         }
         .padding()
     }
